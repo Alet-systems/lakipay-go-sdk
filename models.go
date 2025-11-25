@@ -1,6 +1,6 @@
 package lakipaygosdk
 
-type DirectDetais struct {
+type DirectDetails struct {
 	Phone string `json:"phone"`
 }
 
@@ -10,15 +10,15 @@ type Redirects struct {
 }
 
 type DirectPaymentParams struct {
-	Amount      float64      `json:"amount"`
-	CallbackURL string       `json:"callback_url"`
-	Currency    string       `json:"currency"`
-	Description string       `json:"description"`
-	Details     DirectDetais `json:"details"`
-	Medium      string       `json:"medium"`
-	PhoneNumber string       `json:"phone_number"`
-	Redirects   Redirects    `json:"redirects"`
-	Reference   string       `json:"reference"`
+	Amount      float64       `json:"amount"`
+	CallbackURL string        `json:"callback_url"`
+	Currency    string        `json:"currency"`
+	Description string        `json:"description"`
+	Details     DirectDetails `json:"details"`
+	Medium      string        `json:"medium"`
+	PhoneNumber string        `json:"phone_number"`
+	Redirects   Redirects     `json:"redirects"`
+	Reference   string        `json:"reference"`
 }
 
 type DirectPaymentSuccessResponse struct {
