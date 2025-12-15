@@ -88,3 +88,14 @@ type ErrorResponse struct {
 	Success bool      `json:"success"`
 	Error   ErrorType `json:"error"`
 }
+
+type APIResponse struct {
+	Success bool             `json:"success"`
+	Data    *SuccessResponse `json:"data,omitempty"`
+	Error   *ErrorResponse   `json:"error,omitempty"`
+}
+
+type TransactionResponse struct {
+	Data  *TransactionDetails
+	Error *ErrorResponse
+}

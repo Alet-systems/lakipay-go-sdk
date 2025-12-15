@@ -63,23 +63,12 @@ func (sdk *LakiPayGoSDK) GetTransactionDetails(transactionID string) (*Transacti
 	}
 	defer resp.Body.Close()
 
-	var response TransactionDetails
+	var response TransactionResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	var errorResponse ErrorResponse
-	err = json.NewDecoder(resp.Body).Decode(&errorResponse)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if errorResponse.Success {
-		return &response, nil, nil
-	} else {
-		return nil, &errorResponse, nil
-	}
+	return response.Data, response.Error, nil
 }
 
 func (sdk *LakiPayGoSDK) Checkout(params *CheckoutParams) (*SuccessResponse, *ErrorResponse, error) {
@@ -108,23 +97,13 @@ func (sdk *LakiPayGoSDK) Checkout(params *CheckoutParams) (*SuccessResponse, *Er
 	}
 	defer resp.Body.Close()
 
-	var response SuccessResponse
+	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var errorResponse ErrorResponse
-	err = json.NewDecoder(resp.Body).Decode(&errorResponse)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if errorResponse.Success {
-		return &response, nil, nil
-	} else {
-		return nil, &errorResponse, nil
-	}
+	return response.Data, response.Error, nil
 }
 
 func (sdk *LakiPayGoSDK) WithDrawal(params *WithDrawalParams) (*SuccessResponse, *ErrorResponse, error) {
@@ -153,23 +132,13 @@ func (sdk *LakiPayGoSDK) WithDrawal(params *WithDrawalParams) (*SuccessResponse,
 	}
 	defer resp.Body.Close()
 
-	var response SuccessResponse
+	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var errorResponse ErrorResponse
-	err = json.NewDecoder(resp.Body).Decode(&errorResponse)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if errorResponse.Success {
-		return &response, nil, nil
-	} else {
-		return nil, &errorResponse, nil
-	}
+	return response.Data, response.Error, nil
 }
 
 func (sdk *LakiPayGoSDK) DirectPayment(params *DirectPaymentParams) (*SuccessResponse, *ErrorResponse, error) {
@@ -198,21 +167,10 @@ func (sdk *LakiPayGoSDK) DirectPayment(params *DirectPaymentParams) (*SuccessRes
 	}
 	defer resp.Body.Close()
 
-	var response SuccessResponse
+	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	var errorResponse ErrorResponse
-	err = json.NewDecoder(resp.Body).Decode(&errorResponse)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if errorResponse.Success {
-		return &response, nil, nil
-	} else {
-		return nil, &errorResponse, nil
-	}
+	return response.Data, response.Error, nil
 }
