@@ -41,11 +41,11 @@ func NewLakiPaySDKWithJWTSecret(jwtSecret string) *LakiPayGoSDK {
 	}
 }
 
-func (sdk *LakiPayGoSDK) GetTransactionDetails(transactionID string) (*TransactionDetails, *ErrorResponse, error) {
+func (sdk *LakiPayGoSDK) GetTransactionDetails(transactionID string) (*TransactionResponse, error) {
 	url := URL + "/payment/transaction/" + transactionID
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 
@@ -59,27 +59,27 @@ func (sdk *LakiPayGoSDK) GetTransactionDetails(transactionID string) (*Transacti
 
 	resp, err := sdk.Client.Do(req)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	var response TransactionResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
-	return response.Data, response.Error, nil
+	return &response, nil
 }
 
-func (sdk *LakiPayGoSDK) Checkout(params *CheckoutParams) (*SuccessResponse, *ErrorResponse, error) {
+func (sdk *LakiPayGoSDK) Checkout(params *CheckoutParams) (*APIResponse, error) {
 	url := URL + "/payment/checkout"
 	body, err := json.Marshal(params)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 
@@ -93,28 +93,28 @@ func (sdk *LakiPayGoSDK) Checkout(params *CheckoutParams) (*SuccessResponse, *Er
 
 	resp, err := sdk.Client.Do(req)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	return response.Data, response.Error, nil
+	return &response, nil
 }
 
-func (sdk *LakiPayGoSDK) WithDrawal(params *WithDrawalParams) (*SuccessResponse, *ErrorResponse, error) {
+func (sdk *LakiPayGoSDK) WithDrawal(params *WithDrawalParams) (*APIResponse, error) {
 	url := URL + "/payment/withdrawal"
 	body, err := json.Marshal(params)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 
@@ -128,28 +128,28 @@ func (sdk *LakiPayGoSDK) WithDrawal(params *WithDrawalParams) (*SuccessResponse,
 
 	resp, err := sdk.Client.Do(req)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	return response.Data, response.Error, nil
+	return &response, nil
 }
 
-func (sdk *LakiPayGoSDK) DirectPayment(params *DirectPaymentParams) (*SuccessResponse, *ErrorResponse, error) {
+func (sdk *LakiPayGoSDK) DirectPayment(params *DirectPaymentParams) (*APIResponse, error) {
 	url := URL + "/payment/direct"
 	body, err := json.Marshal(params)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 
@@ -163,14 +163,14 @@ func (sdk *LakiPayGoSDK) DirectPayment(params *DirectPaymentParams) (*SuccessRes
 
 	resp, err := sdk.Client.Do(req)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	var response APIResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
-	return response.Data, response.Error, nil
+	return &response, nil
 }

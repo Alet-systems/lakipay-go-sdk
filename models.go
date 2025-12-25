@@ -77,6 +77,7 @@ type SuccessResponse struct {
 	ReferenceID          string `json:"reference_id"`
 	Status               string `json:"status"`
 	Success              bool   `json:"success"`
+	MerchantPaysFee      bool   `json:"merchant_pays_fee"`
 }
 
 type ErrorType struct {
@@ -90,12 +91,11 @@ type ErrorResponse struct {
 }
 
 type APIResponse struct {
-	Success bool             `json:"success"`
-	Data    *SuccessResponse `json:"data,omitempty"`
-	Error   *ErrorResponse   `json:"error,omitempty"`
+	*SuccessResponse `json:"data,omitempty"`
+	*ErrorResponse   `json:"error,omitempty"`
 }
 
 type TransactionResponse struct {
-	Data  *TransactionDetails
-	Error *ErrorResponse
+	*TransactionDetails
+	*ErrorResponse
 }
