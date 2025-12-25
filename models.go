@@ -76,7 +76,6 @@ type SuccessResponse struct {
 	PaymentURL           string `json:"payment_url"`
 	ReferenceID          string `json:"reference_id"`
 	Status               string `json:"status"`
-	Success              bool   `json:"success"`
 	MerchantPaysFee      bool   `json:"merchant_pays_fee"`
 }
 
@@ -86,13 +85,13 @@ type ErrorType struct {
 }
 
 type ErrorResponse struct {
-	Success bool      `json:"success"`
-	Error   ErrorType `json:"error"`
+	Error ErrorType `json:"error"`
 }
 
 type APIResponse struct {
 	*SuccessResponse `json:"data,omitempty"`
 	*ErrorResponse   `json:"error,omitempty"`
+	Success          bool `json:"success"`
 }
 
 type TransactionResponse struct {
