@@ -89,9 +89,9 @@ type ErrorResponse struct {
 }
 
 type APIResponse struct {
-	*SuccessResponse `json:"data,omitempty"`
-	*ErrorResponse   `json:"error,omitempty"`
-	Success          bool `json:"success"`
+	*SuccessResponse
+	*ErrorResponse
+	Success bool `json:"success"`
 }
 
 type TransactionResponse struct {
