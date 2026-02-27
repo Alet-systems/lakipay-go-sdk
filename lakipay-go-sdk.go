@@ -41,6 +41,21 @@ func NewLakiPaySDKWithJWTSecret(jwtSecret string) *LakiPayGoSDK {
 	}
 }
 
+func (sdk *LakiPayGoSDK) GetApiKey() string {
+	if sdk.Credentials == nil || sdk.Credentials.ApiKey == nil {
+		return ""
+	}
+	return *sdk.Credentials.ApiKey
+}
+
+func (sdk *LakiPayGoSDK) SetApiKey(apiKey string) {
+	if sdk.Credentials == nil {
+		sdk.Credentials = &Credentials{}
+	}
+	key := apiKey
+	sdk.Credentials.ApiKey = &key
+}
+
 func (sdk *LakiPayGoSDK) GetTransactionDetails(transactionID string) (*TransactionResponse, error) {
 	url := URL + "/payment/transaction/" + transactionID
 	req, err := http.NewRequest("GET", url, nil)

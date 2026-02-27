@@ -30,6 +30,26 @@ import "github.com/Alet-systems/lakipay-go-sdk"
 sdk := lakipaygosdk.NewLakiPaySDKWithJWTSecret("YOUR_JWT_SECRET")
 ```
 
+## API Key Getter and Setter
+
+You can read and update the API key after the SDK is created.
+
+### Get API Key
+
+`GetApiKey()` returns the current API key. It returns an empty string if no API key is set.
+
+```go
+apiKey := sdk.GetApiKey()
+```
+
+### Set API Key
+
+`SetApiKey(apiKey string)` sets or overwrites the API key. It works even when credentials already exist (e.g. when the SDK was created with `NewLakiPaySDKWithJWTSecret`). Credentials are created automatically if needed.
+
+```go
+sdk.SetApiKey("YOUR_NEW_API_KEY")
+```
+
 ## Usage
 
 The LakiPay Go SDK provides methods for handling payments, withdrawals, and transaction details.
